@@ -10,3 +10,4 @@ Technologies Used :
 Some notes : 
 
 - Numpad keys are supported
+- Actual Calculations occur in another thread, and Calculation Methods are contained in a .dll seperate to the main project, this is just to allow extensibility. 
