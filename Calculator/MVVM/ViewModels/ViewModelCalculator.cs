@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Controls;
 using System.Windows.Input;
-using Calculator_Methods;
-using Calculator_Methods.Calculation_Classes;
 using System;
 using System.Runtime.Remoting.Messaging;
 using Calculator.Calculations;
@@ -38,7 +36,7 @@ namespace Calculator.MVVM.ViewModels
 
         public ICommand ClearAllCommand
         {
-            get { return _clearAll; }
+            get => _clearAll;
             set
             {
                 _clearAll = value;
@@ -48,7 +46,7 @@ namespace Calculator.MVVM.ViewModels
 
         public ICommand CalculateCommand
         {
-            get { return _calculateCommand; }
+            get => _calculateCommand;
             set
             {
                 _calculateCommand = value;
@@ -58,7 +56,7 @@ namespace Calculator.MVVM.ViewModels
 
         public ICommand OperatorPressedCommand
         {
-            get { return _operaterPressedCommand; }
+            get => _operaterPressedCommand;
             set
             {
                 _operaterPressedCommand = value;
@@ -68,7 +66,7 @@ namespace Calculator.MVVM.ViewModels
 
         public ICommand BackspaceMainDisplayCommand
         {
-            get { return _backspaceMainDisplayCommand; }
+            get => _backspaceMainDisplayCommand;
             set
             {
                 _backspaceMainDisplayCommand = value;
@@ -79,7 +77,7 @@ namespace Calculator.MVVM.ViewModels
 
         public ICommand NegateMainDisplayCommand
         {
-            get { return _negateMainDisplayCommand; }
+            get => _negateMainDisplayCommand;
             set
             {
                 _negateMainDisplayCommand = value;
@@ -90,7 +88,7 @@ namespace Calculator.MVVM.ViewModels
 
         public ICommand EnterIntoMainDisplayCommand
         {
-            get { return _enterIntoMainDisplayCommand; }
+            get => _enterIntoMainDisplayCommand;
             set
             {
                 _enterIntoMainDisplayCommand = value;
@@ -100,7 +98,7 @@ namespace Calculator.MVVM.ViewModels
 
         public ModelCalculator ModelCalculator
         {
-            get { return _modelCalculator; }
+            get => _modelCalculator;
             set
             {
                 _modelCalculator = value;
@@ -153,10 +151,7 @@ namespace Calculator.MVVM.ViewModels
 
         private bool CalculateCommand_CanExecute()
         {
-            bool canExecute = false;
-
-            if (ModelCalculator.SelectedOperator != (int)ModelCalculator.Operators.None)
-                canExecute = true;
+            bool canExecute = ModelCalculator.SelectedOperator != (int)ModelCalculator.Operators.None;
 
             return canExecute;
         }
@@ -180,7 +175,7 @@ namespace Calculator.MVVM.ViewModels
         {
             var button = operationButtonPressed as Button;
             var buttonContent = button.Content;
-            var functionCalledFrom = "OperatorButton";
+            var calculationCalledFrom = "OperatorButton";
 
             NullifyLastValueUsed();
 
@@ -193,15 +188,12 @@ namespace Calculator.MVVM.ViewModels
             ModelCalculator.CalculationLabel = ModelCalculator.ValuesToCalculate[ModelCalculator.ValuesToCalculate.Count - 1] + " " + buttonContent;
 
             if (ModelCalculator.SelectedOperator == (int)ModelCalculator.Operators.SquareRoot)
-                BeginCalculation(functionCalledFrom);
+                BeginCalculation(calculationCalledFrom);
         }
 
         private bool BackspaceMainDisplayCommand_CanExecute()
         {
-            bool canExecute = false;
-
-            if (!ModelCalculator.MainDisplay.Equals("0"))
-                canExecute = true;
+            bool canExecute = !ModelCalculator.MainDisplay.Equals("0");
 
             return canExecute;
         }
@@ -213,10 +205,7 @@ namespace Calculator.MVVM.ViewModels
 
         private bool NegateMainDisplayCommand_CanExecute()
         {
-            bool canExecute = false;
-
-            if (!string.IsNullOrEmpty(ModelCalculator.MainDisplay) && !ModelCalculator.MainDisplay.Equals("0"))
-                canExecute = true;
+            bool canExecute = !string.IsNullOrEmpty(ModelCalculator.MainDisplay) && !ModelCalculator.MainDisplay.Equals("0");
 
             return canExecute;
         }

@@ -1,7 +1,5 @@
 ﻿using Calculator.MVVM.ViewModels;
 using System.Windows;
-using System;
-using System.Windows.Input;
 
 namespace Calculator
 {

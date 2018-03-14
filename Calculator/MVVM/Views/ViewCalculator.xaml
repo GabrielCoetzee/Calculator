@@ -22,7 +22,7 @@
         <KeyBinding Command="{Binding EnterIntoMainDisplayCommand}" CommandParameter="{Binding ElementName=btnNumpadEight}" Key="NumPad8"/>
         <KeyBinding Command="{Binding EnterIntoMainDisplayCommand}" CommandParameter="{Binding ElementName=btnNumpadNine}" Key="NumPad9"/>
         <KeyBinding Command="{Binding EnterIntoMainDisplayCommand}" CommandParameter="{Binding ElementName=btnPeriod}" Key="Decimal" />
-        <KeyBinding Command="{Binding NegateMainDisplayCommand}" Key="Backspace"/>
+        <KeyBinding Command="{Binding BackspaceMainDisplayCommand}" Key="Back"/>
         <KeyBinding Command="{Binding CalculateCommand}" Key="Return"/>
     </Window.InputBindings>
     <Grid Margin="5">
