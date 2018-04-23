@@ -23,7 +23,7 @@ namespace Calculator.MVVM.Models
 
         private string _mainDisplay;
         private Func<List<double>, double> _calculateFunction;
-        private int _selectedOperator;
+        private Operators _selectedOperator;
         private List<double> _valuesToCalculate;
         private string _calculationLabel;
         private double? _lastValueUsed;
@@ -34,7 +34,7 @@ namespace Calculator.MVVM.Models
             set
             {
                 _lastValueUsed = value;
-                OnPropertyChanged(Helpers.Constants.ModelProperties.LastValueUsed);
+                OnPropertyChanged(nameof(LastValueUsed));
             }
         }
 
@@ -45,7 +45,7 @@ namespace Calculator.MVVM.Models
             set
             {
                 _calculationLabel = value;
-                OnPropertyChanged(Helpers.Constants.ModelProperties.CalculationLabel);
+                OnPropertyChanged(nameof(CalculationLabel));
             }
         }
 
@@ -56,18 +56,18 @@ namespace Calculator.MVVM.Models
             set
             {
                 _valuesToCalculate = value;
-                OnPropertyChanged(Helpers.Constants.ModelProperties.ValuesToCalculate);
+                OnPropertyChanged(nameof(ValuesToCalculate));
             }
         }
 
 
-        public int SelectedOperator
+        public Operators SelectedOperator
         {
             get { return _selectedOperator; }
             set
             {
                 _selectedOperator = value;
-                OnPropertyChanged(Helpers.Constants.ModelProperties.SelectedOperator);
+                OnPropertyChanged(nameof(SelectedOperator));
             }
         }
 
@@ -77,7 +77,7 @@ namespace Calculator.MVVM.Models
             set
             {
                 _calculateFunction = value;
-                OnPropertyChanged(Helpers.Constants.ModelProperties.Calculate);
+                OnPropertyChanged(nameof(CalculateFunction));
             }
         }
 
@@ -87,7 +87,7 @@ namespace Calculator.MVVM.Models
             set
             {
                 _mainDisplay = value;
-                OnPropertyChanged(Helpers.Constants.ModelProperties.MainDisplay);
+                OnPropertyChanged(nameof(MainDisplay));
             }
         }
 

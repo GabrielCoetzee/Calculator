@@ -63,12 +63,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Calculations\CalculateClassFactory.cs" />
-    <Compile Include="Helpers\Command Classes\RelayCommand.cs" />
-    <Compile Include="Helpers\Command Classes\RelayCommandWithParameter.cs" />
-    <Compile Include="Helpers\Constants\Commands.cs" />
-    <Compile Include="Helpers\Constants\ModelProperties.cs" />
-    <Compile Include="Helpers\Constants\ViewModelProperties.cs" />
-    <Compile Include="Helpers\Operators\Operators.cs" />
+    <Compile Include="Helpers\Custom Command Classes\RelayCommand.cs" />
+    <Compile Include="Helpers\Custom Command Classes\RelayCommandWithParameter.cs" />
+    <Compile Include="Calculations\OperatorHelpers.cs" />
     <Compile Include="MVVM\Models\ModelCalculator.cs" />
     <Compile Include="MVVM\ViewModels\ViewModelCalculator.cs" />
     <Compile Include="MVVM\Views\ViewCalculator.xaml.cs">
@@ -108,5 +105,6 @@
       <Name>Calculator_Methods</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

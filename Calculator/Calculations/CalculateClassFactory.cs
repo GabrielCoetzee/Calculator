@@ -6,25 +6,25 @@ namespace Calculator.Calculations
 {
     public static class CalculateClassFactory
     {
-        public static ICalculable GetOperationClass(int selectedOperator)
+        public static ICalculable GetOperationClass(ModelCalculator.Operators selectedOperator)
         {
             ICalculable calculateClass = default(ICalculable);
 
             switch (selectedOperator)
             {
-                case (int)ModelCalculator.Operators.Addition:
+                case ModelCalculator.Operators.Addition:
                     calculateClass = new Addition();
                     break;
-                case (int)ModelCalculator.Operators.Division:
+                case ModelCalculator.Operators.Division:
                     calculateClass = new Division();
                     break;
-                case (int)ModelCalculator.Operators.Multiplication:
+                case ModelCalculator.Operators.Multiplication:
                     calculateClass = new Multiplication();
                     break;
-                case (int)ModelCalculator.Operators.Subtraction:
+                case ModelCalculator.Operators.Subtraction:
                     calculateClass = new Subtraction();
                     break;
-                case (int)ModelCalculator.Operators.SquareRoot:
+                case ModelCalculator.Operators.SquareRoot:
                     calculateClass = new SquareRoot();
                     break;
             }

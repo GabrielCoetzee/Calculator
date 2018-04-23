@@ -40,7 +40,7 @@ namespace Calculator.MVVM.ViewModels
             set
             {
                 _clearAll = value;
-                OnPropertyChanged(Helpers.Constants.Commands.ClearAllCommand);
+                OnPropertyChanged(nameof(ClearAllCommand));
             }
         }
 
@@ -50,7 +50,7 @@ namespace Calculator.MVVM.ViewModels
             set
             {
                 _calculateCommand = value;
-                OnPropertyChanged(Helpers.Constants.Commands.CalculateCommand);
+                OnPropertyChanged(nameof(CalculateCommand));
             }
         }
 
@@ -60,7 +60,7 @@ namespace Calculator.MVVM.ViewModels
             set
             {
                 _operaterPressedCommand = value;
-                OnPropertyChanged(Helpers.Constants.Commands.OperatorPressedCommand);
+                OnPropertyChanged(nameof(OperatorPressedCommand));
             }
         }
 
@@ -70,7 +70,7 @@ namespace Calculator.MVVM.ViewModels
             set
             {
                 _backspaceMainDisplayCommand = value;
-                OnPropertyChanged(Helpers.Constants.Commands.BackspaceMainDisplayCommand);
+                OnPropertyChanged(nameof(BackspaceMainDisplayCommand));
             }
         }
 
@@ -81,7 +81,7 @@ namespace Calculator.MVVM.ViewModels
             set
             {
                 _negateMainDisplayCommand = value;
-                OnPropertyChanged(Helpers.Constants.Commands.NegateMainDisplayCommand);
+                OnPropertyChanged(nameof(NegateMainDisplayCommand));
             }
         }
 
@@ -92,7 +92,7 @@ namespace Calculator.MVVM.ViewModels
             set
             {
                 _enterIntoMainDisplayCommand = value;
-                OnPropertyChanged(Helpers.Constants.Commands.EnterIntoMainDisplayCommand);
+                OnPropertyChanged(nameof(EnterIntoMainDisplayCommand));
             }
         }
 
@@ -102,7 +102,7 @@ namespace Calculator.MVVM.ViewModels
             set
             {
                 _modelCalculator = value;
-                OnPropertyChanged(Helpers.Constants.ViewModelProperties.ModelCalculator);
+                OnPropertyChanged(nameof(ModelCalculator));
             }
         }
 
@@ -179,7 +179,7 @@ namespace Calculator.MVVM.ViewModels
 
             NullifyLastValueUsed();
 
-            ModelCalculator.SelectedOperator = Operators.GetOperator(buttonContent);
+            ModelCalculator.SelectedOperator = OperatorHelpers.GetOperator(buttonContent);
             ModelCalculator.CalculateFunction = CalculateClassFactory.GetOperationClass(ModelCalculator.SelectedOperator).Calculate;
 
             AddValueToCalculationArray(double.Parse(ModelCalculator.MainDisplay));
@@ -187,7 +187,7 @@ namespace Calculator.MVVM.ViewModels
 
             ModelCalculator.CalculationLabel = ModelCalculator.ValuesToCalculate[ModelCalculator.ValuesToCalculate.Count - 1] + " " + buttonContent;
 
-            if (ModelCalculator.SelectedOperator == (int)ModelCalculator.Operators.SquareRoot)
+            if (ModelCalculator.SelectedOperator == ModelCalculator.Operators.SquareRoot)
                 BeginCalculation(calculationCalledFrom);
         }
 
