@@ -122,7 +122,7 @@ namespace Calculator.MVVM.ViewModels
 
         private void InitializeModelInstance()
         {
-            ModelCalculator = new ModelCalculator() { MainDisplay = "0", CalculationLabel = "", ValuesToCalculate = new List<double>(), SelectedOperator = (int)ModelCalculator.Operators.None, LastValueUsed = null };
+            ModelCalculator = new ModelCalculator() { MainDisplay = "0", CalculationHistory = "", ValuesToCalculate = new List<double>(), SelectedOperator = (int)ModelCalculator.Operators.None, LastValueUsed = null };
         }
 
         private void InitializeCommands()
@@ -146,14 +146,12 @@ namespace Calculator.MVVM.ViewModels
 
         private void ClearAllCommand_Execute()
         {
-            ModelCalculator = new ModelCalculator() { CalculateFunction = null, CalculationLabel = string.Empty, LastValueUsed = null, MainDisplay = "0", SelectedOperator = (int)ModelCalculator.Operators.None, ValuesToCalculate = new List<double>() };
+            ModelCalculator = new ModelCalculator() { CalculateFunction = null, CalculationHistory = string.Empty, LastValueUsed = null, MainDisplay = "0", SelectedOperator = (int)ModelCalculator.Operators.None, ValuesToCalculate = new List<double>() };
         }
 
         private bool CalculateCommand_CanExecute()
         {
-            bool canExecute = ModelCalculator.SelectedOperator != (int)ModelCalculator.Operators.None;
-
-            return canExecute;
+            return  ModelCalculator.SelectedOperator != ModelCalculator.Operators.None;
         }
 
         private void CalculateCommand_Execute()
@@ -161,7 +159,7 @@ namespace Calculator.MVVM.ViewModels
             var currentValueDisplayed = double.Parse(ModelCalculator.MainDisplay);
             var functionCalledFrom = "EqualsButton";
 
-            AddValueToCalculationArray(currentValueDisplayed);
+            AddValueToCalculationList(currentValueDisplayed);
             SetLastUsedValue(currentValueDisplayed);
             BeginCalculation(functionCalledFrom);
         }
@@ -171,31 +169,31 @@ namespace Calculator.MVVM.ViewModels
             return true;
         }
 
-        private void OperatorPressedCommand_Execute(object operationButtonPressed)
+        private void OperatorPressedCommand_Execute(object uiElement)
         {
-            var button = operationButtonPressed as Button;
-            var buttonContent = button.Content;
-            var calculationCalledFrom = "OperatorButton";
+            if (uiElement is Button button)
+            {
+                var buttonContent = button.Content;
+                var calculationCalledFrom = "OperatorButton";
 
-            NullifyLastValueUsed();
+                ResetLastUsedValue();
 
-            ModelCalculator.SelectedOperator = OperatorHelpers.GetOperator(buttonContent);
-            ModelCalculator.CalculateFunction = CalculateClassFactory.GetOperationClass(ModelCalculator.SelectedOperator).Calculate;
+                ModelCalculator.SelectedOperator = OperatorHelpers.GetOperator(buttonContent);
+                ModelCalculator.CalculateFunction = CalculateClassFactory.GetOperationClass(ModelCalculator.SelectedOperator).Calculate;
 
-            AddValueToCalculationArray(double.Parse(ModelCalculator.MainDisplay));
-            ResetMainDisplay();
+                AddValueToCalculationList(double.Parse(ModelCalculator.MainDisplay));
+                ResetMainDisplay();
 
-            ModelCalculator.CalculationLabel = ModelCalculator.ValuesToCalculate[ModelCalculator.ValuesToCalculate.Count - 1] + " " + buttonContent;
+                ModelCalculator.CalculationHistory = ModelCalculator.ValuesToCalculate[ModelCalculator.ValuesToCalculate.Count - 1] + " " + buttonContent;
 
-            if (ModelCalculator.SelectedOperator == ModelCalculator.Operators.SquareRoot)
-                BeginCalculation(calculationCalledFrom);
+                if (ModelCalculator.SelectedOperator == ModelCalculator.Operators.SquareRoot)
+                    BeginCalculation(calculationCalledFrom);
+            }
         }
 
         private bool BackspaceMainDisplayCommand_CanExecute()
         {
-            bool canExecute = !ModelCalculator.MainDisplay.Equals("0");
-
-            return canExecute;
+            return !ModelCalculator.MainDisplay.Equals("0");
         }
 
         private void BackspaceMainDisplayCommand_Execute()
@@ -205,9 +203,7 @@ namespace Calculator.MVVM.ViewModels
 
         private bool NegateMainDisplayCommand_CanExecute()
         {
-            bool canExecute = !string.IsNullOrEmpty(ModelCalculator.MainDisplay) && !ModelCalculator.MainDisplay.Equals("0");
-
-            return canExecute;
+            return !string.IsNullOrEmpty(ModelCalculator.MainDisplay) && !ModelCalculator.MainDisplay.Equals("0");
         }
 
         private void NegateMainDisplayCommand_Execute()
@@ -220,10 +216,12 @@ namespace Calculator.MVVM.ViewModels
             return true;
         }
 
-        private void EnterIntoMainDisplayCommand_Execute(object pressedButton)
+        private void EnterIntoMainDisplayCommand_Execute(object uiElement)
         {
-            var buttonPressedByUser = pressedButton as Button;
-            EnterIntoMainDisplay(buttonPressedByUser.Content);
+            if (uiElement is Button button)
+            {
+                EnterIntoMainDisplay(button.Content);
+            }
         }
 
         #endregion Command Methods
@@ -242,12 +240,12 @@ namespace Calculator.MVVM.ViewModels
             var functionCalledFrom = result.AsyncState as string;
 
             if (functionCalledFrom.Equals("EqualsButton"))
-                ModelCalculator.CalculationLabel = "";
+                ModelCalculator.CalculationHistory = "";
 
             ModelCalculator.MainDisplay = caller.EndInvoke(result).ToString();
         }
 
-        private void NullifyLastValueUsed()
+        private void ResetLastUsedValue()
         {
             ModelCalculator.LastValueUsed = null;
         }
@@ -262,15 +260,15 @@ namespace Calculator.MVVM.ViewModels
             if (ModelCalculator.LastValueUsed == null)
                 ModelCalculator.LastValueUsed = value; 
             else
-                AddLastValueUsedToCalculationArray();
+                AddLastValueUsedToCalculationList();
         }       
 
-        private void AddValueToCalculationArray(double value)
+        private void AddValueToCalculationList(double value)
         {
             ModelCalculator.ValuesToCalculate.Add(value);
         }
 
-        private void AddLastValueUsedToCalculationArray()
+        private void AddLastValueUsedToCalculationList()
         {
             ModelCalculator.ValuesToCalculate.Add(ModelCalculator.LastValueUsed.Value);
         }

@@ -44,7 +44,7 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Text="{Binding ModelCalculator.CalculationLabel}" FontSize="18" Foreground="Gray" VerticalAlignment="Top" HorizontalAlignment="Right" Name="textBlockPreviousCalculation" />
+            <TextBlock Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Text="{Binding ModelCalculator.CalculationHistory}" FontSize="18" Foreground="Gray" VerticalAlignment="Top" HorizontalAlignment="Right" Name="textBlockPreviousCalculation" />
 
             <TextBox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="4" Margin="0, 5" Name="textBoxDisplay" Text="{Binding ModelCalculator.MainDisplay}" Foreground="Black" TextWrapping="WrapWithOverflow" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" IsEnabled="False" FontWeight="Bold" IsTabStop="False" FontSize="40" Focusable="False" AllowDrop="False" />
 

@@ -25,12 +25,12 @@ namespace Calculator.MVVM.Models
         private Func<List<double>, double> _calculateFunction;
         private Operators _selectedOperator;
         private List<double> _valuesToCalculate;
-        private string _calculationLabel;
+        private string _calculationHistory;
         private double? _lastValueUsed;
 
         public double? LastValueUsed
         {
-            get { return _lastValueUsed; }
+            get => _lastValueUsed;
             set
             {
                 _lastValueUsed = value;
@@ -39,20 +39,20 @@ namespace Calculator.MVVM.Models
         }
 
 
-        public string CalculationLabel
+        public string CalculationHistory
         {
-            get { return _calculationLabel; }
+            get => _calculationHistory;
             set
             {
-                _calculationLabel = value;
-                OnPropertyChanged(nameof(CalculationLabel));
+                _calculationHistory = value;
+                OnPropertyChanged(nameof(CalculationHistory));
             }
         }
 
 
         public List<double> ValuesToCalculate
         {
-            get { return _valuesToCalculate; }
+            get => _valuesToCalculate;
             set
             {
                 _valuesToCalculate = value;
@@ -63,7 +63,7 @@ namespace Calculator.MVVM.Models
 
         public Operators SelectedOperator
         {
-            get { return _selectedOperator; }
+            get => _selectedOperator;
             set
             {
                 _selectedOperator = value;
@@ -73,7 +73,7 @@ namespace Calculator.MVVM.Models
 
         public Func<List<double>, double> CalculateFunction
         {
-            get { return _calculateFunction; }
+            get => _calculateFunction;
             set
             {
                 _calculateFunction = value;
@@ -83,14 +83,13 @@ namespace Calculator.MVVM.Models
 
         public string MainDisplay
         {
-            get { return _mainDisplay; }
+            get => _mainDisplay;
             set
             {
                 _mainDisplay = value;
                 OnPropertyChanged(nameof(MainDisplay));
             }
         }
-
 
         #endregion Properties
     }
