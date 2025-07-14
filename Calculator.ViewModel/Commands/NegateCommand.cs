@@ -21,7 +21,7 @@ namespace Calculator.ViewModel.Commands
 
         public bool CanExecute(object? parameter)
         {
-            return _viewModel.MainDisplay != CalculatorConstants.MainDisplayDefault;
+            return !_viewModel.MainDisplay.Equals(CalculatorConstants.MainDisplayDefault) && !_viewModel.MainDisplay.Contains(CalculatorConstants.InvalidInputMessage);
         }
 
         public void Execute(object? parameter)

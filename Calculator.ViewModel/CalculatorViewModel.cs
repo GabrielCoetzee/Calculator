@@ -45,6 +45,9 @@ namespace Calculator.ViewModel
 
                 (BackspaceCommand as BackspaceCommand)?.RaiseCanExecuteChanged();
                 (NegateCommand as NegateCommand)?.RaiseCanExecuteChanged();
+                (CalculateCommand as CalculateCommand)?.RaiseCanExecuteChanged();
+                (SelectOperatorCommand as SelectOperatorCommand)?.RaiseCanExecuteChanged();
+                (UpdateDisplayCommand as UpdateDisplayCommand)?.RaiseCanExecuteChanged();
             }
         }
 
@@ -76,6 +79,7 @@ namespace Calculator.ViewModel
                 OnPropertyChanged(nameof(CalculationHistory));
 
                 (CalculateCommand as CalculateCommand)?.RaiseCanExecuteChanged();
+                (CalculateCommand as SelectOperatorCommand)?.RaiseCanExecuteChanged();
             }
         }
 

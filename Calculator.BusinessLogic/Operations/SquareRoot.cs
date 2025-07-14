@@ -1,4 +1,5 @@
-﻿using Calculator.Model.Enums;
+﻿using Calculator.BusinessLogic.Exceptions;
+using Calculator.Model.Enums;
 
 namespace Calculator.BusinessLogic.Operations
 {
@@ -6,9 +7,9 @@ namespace Calculator.BusinessLogic.Operations
     {
         public Operator Operator => Operator.SquareRoot;
 
-        public decimal Calculate(decimal? firstValue, decimal? secondValue)
+        public decimal Calculate(decimal firstValue, decimal secondValue)
         {
-            return (decimal) Math.Sqrt(double.Parse(firstValue.GetValueOrDefault().ToString()));
+            return (decimal)Math.Sqrt(double.Parse(firstValue.ToString()));
         }
     }
 }

@@ -6,9 +6,9 @@ namespace Calculator.BusinessLogic.Operations
     {
         public Operator Operator => Operator.Division;
 
-        public decimal Calculate(decimal? firstValue, decimal? secondValue)
+        public decimal Calculate(decimal firstValue, decimal secondValue)
         {
-            return firstValue.GetValueOrDefault() / secondValue.GetValueOrDefault();
+            return firstValue / secondValue;
         }
     }
 }

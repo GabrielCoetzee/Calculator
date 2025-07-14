@@ -19,7 +19,7 @@ namespace Calculator.ViewModel.Commands
             CanExecuteChanged?.Invoke(this, EventArgs.Empty);
         }
 
-        public bool CanExecute(object? parameter) => true;
+        public bool CanExecute(object? parameter) => !_viewModel.MainDisplay.Contains(CalculatorConstants.InvalidInputMessage);
 
         public void Execute(object? parameter)
         {

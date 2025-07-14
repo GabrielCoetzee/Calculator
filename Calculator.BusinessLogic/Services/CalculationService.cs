@@ -1,4 +1,5 @@
-﻿using Calculator.Model.Enums;
+﻿using Calculator.BusinessLogic.Exceptions;
+using Calculator.Model.Enums;
 using Calculator.ViewModel.Calculations;
 
 namespace Calculator.BusinessLogic.Services
@@ -11,11 +12,30 @@ namespace Calculator.BusinessLogic.Services
             _factory = factory;
         }
 
-        public decimal Calculate(decimal? firstValue, decimal? secondValue, Operator selectedOperator)
+        public decimal Calculate(decimal firstValue, decimal secondValue, Operator selectedOperator)
         {
-            return _factory
-                .GetOperation(selectedOperator)
-                .Calculate(firstValue, secondValue);
+            try
+            {
+                return _factory
+                    .GetOperation(selectedOperator)
+                    .Calculate(firstValue, secondValue);
+            }
+            catch (FormatException)
+            {
+                throw new InvalidInputException();
+            }
+            catch (OverflowException)
+            {
+                throw new InvalidInputException();
+            }
+            catch (ArgumentException)
+            {
+                throw new InvalidInputException();
+            }
+            catch (ArithmeticException)
+            {
+                throw new InvalidInputException();
+            }
         }
     }
 }

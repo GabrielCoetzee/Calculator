@@ -1,4 +1,5 @@
-﻿using Calculator.BusinessLogic.Services;
+﻿using Calculator.BusinessLogic.Exceptions;
+using Calculator.BusinessLogic.Services;
 using Calculator.Model.Helpers;
 using Calculator.ViewModel.Constants;
 using System.Globalization;
@@ -26,7 +27,7 @@ namespace Calculator.ViewModel.Commands
 
         public bool CanExecute(object? parameter)
         {
-            return true;
+            return !_viewModel.MainDisplay.Contains(CalculatorConstants.InvalidInputMessage);
         }
 
         public void Execute(object? parameter)
@@ -39,8 +40,15 @@ namespace Calculator.ViewModel.Commands
             _viewModel.MainDisplay = CalculatorConstants.MainDisplayDefault;
             _viewModel.SelectedOperator = OperatorHelpers.GetOperator(parameter?.ToString());
 
-            if (_viewModel.SelectedOperator == Model.Enums.Operator.SquareRoot)
-                _viewModel.MainDisplay = _calculationService.Calculate(_viewModel.CalculatorModel.FirstValue, _viewModel.CalculatorModel.SecondValue, _viewModel.SelectedOperator).ToString();
+            try
+            {
+                if (_viewModel.SelectedOperator == Model.Enums.Operator.SquareRoot)
+                    _viewModel.MainDisplay = _calculationService.Calculate(_viewModel.CalculatorModel.FirstValue.GetValueOrDefault(), _viewModel.CalculatorModel.SecondValue.GetValueOrDefault(), _viewModel.SelectedOperator).ToString();
+            }
+            catch (InvalidInputException)
+            {
+                _viewModel.MainDisplay = CalculatorConstants.InvalidInputMessage;
+            }
         }
     }
 }
