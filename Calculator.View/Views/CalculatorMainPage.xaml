@@ -1,0 +1,165 @@
+﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:Calculator.ViewModel;assembly=Calculator.ViewModel"
+             x:Class="Calculator.CalculatorMainPage"
+                 Title="Calculator" Height="506" Width="413" 
+             x:DataType="viewmodels:CalculatorViewModel">
+    <!--<ContentPage.BindingContext>
+        <viewmodels:ViewModelCalculator />
+    </ContentPage.BindingContext>-->
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="BackgroundColor">#202020</Color>
+            <Color x:Key="DisplayBackgroundColor">#202020</Color>
+            <Color x:Key="NumberButtonColor">#323232</Color>
+            <Color x:Key="OperatorButtonColor">#2B2B2B</Color>
+            <Color x:Key="AccentButtonColor">#2563EB</Color>
+            <Color x:Key="ButtonTextColor">#FFFFFF</Color>
+            <Color x:Key="DisplayTextColor">#FFFFFF</Color>
+            <Color x:Key="HistoryTextColor">#888888</Color>
+
+            <Style x:Key="CalculatorButtonStyle" TargetType="Button">
+                <Setter Property="Margin" Value="2" />
+                <Setter Property="CornerRadius" Value="4" />
+                <Setter Property="FontSize" Value="20" />
+                <Setter Property="TextColor" Value="{StaticResource ButtonTextColor}" />
+                <Setter Property="HeightRequest" Value="60" />
+            </Style>
+
+            <Style x:Key="NumberButtonStyle" BasedOn="{StaticResource CalculatorButtonStyle}" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource NumberButtonColor}" />
+            </Style>
+
+            <Style x:Key="OperatorButtonStyle" BasedOn="{StaticResource CalculatorButtonStyle}" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource OperatorButtonColor}" />
+            </Style>
+
+            <Style x:Key="AccentButtonStyle" BasedOn="{StaticResource CalculatorButtonStyle}" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource AccentButtonColor}" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid Padding="8" BackgroundColor="{StaticResource BackgroundColor}">
+        <Grid ColumnDefinitions="*,*,*,*" 
+              RowDefinitions="Auto,Auto,*,*,*,*,*" 
+              RowSpacing="2" 
+              ColumnSpacing="2">
+
+            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" 
+                   Text="{Binding CalculationHistory}"
+                   FontSize="16" 
+                   TextColor="{StaticResource HistoryTextColor}"
+                   Margin="4,8"
+                   VerticalOptions="Center" 
+                   HorizontalOptions="End"/>
+
+            <Entry Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="4"
+                   Margin="4,0,4,8"
+                   Text="{Binding MainDisplay}"
+                   TextColor="{StaticResource DisplayTextColor}"
+                   HorizontalTextAlignment="End"
+                   FontAttributes="Bold"
+                   FontSize="40"
+                   IsReadOnly="True"
+                   BackgroundColor="{StaticResource DisplayBackgroundColor}"/>
+
+            <Button Grid.Column="0" Grid.Row="2" Text="√" 
+                    Style="{StaticResource OperatorButtonStyle}"
+                    Command="{Binding SelectOperatorCommand}"
+                    CommandParameter="√"/>
+
+            <Button Grid.Column="1" Grid.Row="2" Text="C"
+                    Style="{StaticResource OperatorButtonStyle}"
+                    Command="{Binding ClearAllCommand}" />
+
+            <Button Grid.Column="2" Grid.Row="2" Text="←" 
+                    Style="{StaticResource OperatorButtonStyle}"
+                    Command="{Binding BackspaceCommand}" />
+
+            <Button Grid.Column="3" Grid.Row="2" Text="÷" 
+                    Style="{StaticResource OperatorButtonStyle}"
+                    Command="{Binding SelectOperatorCommand}"
+                    CommandParameter="÷"/>
+
+            <Button Grid.Column="0" Grid.Row="3" Text="7"
+                    Style="{StaticResource NumberButtonStyle}"
+                    Command="{Binding UpdateDisplayCommand}"
+                    CommandParameter="7"/>
+
+            <Button Grid.Column="1" Grid.Row="3" Text="8"
+                    Style="{StaticResource NumberButtonStyle}"
+                    Command="{Binding UpdateDisplayCommand}"
+                    CommandParameter="8"/>
+
+            <Button Grid.Column="2" Grid.Row="3" Text="9"
+                    Style="{StaticResource NumberButtonStyle}"
+                    Command="{Binding UpdateDisplayCommand}"
+                    CommandParameter="9"/>
+
+            <Button Grid.Column="3" Grid.Row="3" Text="×" 
+                    Style="{StaticResource OperatorButtonStyle}"
+                    Command="{Binding SelectOperatorCommand}"
+                    CommandParameter="x"/>
+
+            <Button Grid.Column="0" Grid.Row="4" Text="4"
+                    Style="{StaticResource NumberButtonStyle}"
+                    Command="{Binding UpdateDisplayCommand}"
+                    CommandParameter="4"/>
+
+            <Button Grid.Column="1" Grid.Row="4" Text="5"
+                    Style="{StaticResource NumberButtonStyle}"
+                    Command="{Binding UpdateDisplayCommand}"
+                    CommandParameter="5"/>
+
+            <Button Grid.Column="2" Grid.Row="4" Text="6"
+                    Style="{StaticResource NumberButtonStyle}"
+                    Command="{Binding UpdateDisplayCommand}"
+                    CommandParameter="6"/>
+
+            <Button Grid.Column="3" Grid.Row="4" Text="-" 
+                    Style="{StaticResource OperatorButtonStyle}"
+                    Command="{Binding SelectOperatorCommand}"
+                    CommandParameter="-"/>
+
+            <Button Grid.Column="0" Grid.Row="5" Text="1"
+                    Style="{StaticResource NumberButtonStyle}"
+                    Command="{Binding UpdateDisplayCommand}"
+                    CommandParameter="1"/>
+
+            <Button Grid.Column="1" Grid.Row="5" Text="2"
+                    Style="{StaticResource NumberButtonStyle}"
+                    Command="{Binding UpdateDisplayCommand}"
+                    CommandParameter="2"/>
+
+            <Button Grid.Column="2" Grid.Row="5" Text="3"
+                    Style="{StaticResource NumberButtonStyle}"
+                    Command="{Binding UpdateDisplayCommand}"
+                    CommandParameter="3"/>
+
+            <Button Grid.Column="3" Grid.Row="5" Text="+" 
+                    Style="{StaticResource OperatorButtonStyle}"
+                    Command="{Binding SelectOperatorCommand}"
+                    CommandParameter="+"/>
+
+            <Button Grid.Column="0" Grid.Row="6" Text="±" 
+                    Style="{StaticResource NumberButtonStyle}"
+                    Command="{Binding NegateCommand}" />
+
+            <Button Grid.Column="1" Grid.Row="6" Text="0" 
+                    Style="{StaticResource NumberButtonStyle}"
+                    Command="{Binding UpdateDisplayCommand}"
+                    CommandParameter="0" />
+
+            <Button Grid.Column="2" Grid.Row="6" Text="."
+                    Style="{StaticResource NumberButtonStyle}"
+                    Command="{Binding UpdateDisplayCommand}"
+                    CommandParameter="."/>
+
+            <Button Grid.Column="3" Grid.Row="6" Text="=" 
+                    Style="{StaticResource AccentButtonStyle}"
+                    Command="{Binding CalculateCommand}" />
+        </Grid>
+    </Grid>
+</ContentPage>
